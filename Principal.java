@@ -16,8 +16,8 @@ class Principal {
     new File("dados/dicionario.listainv.db").delete();
 
 
-    Livro l1 = new Livro(-1, "3049214201", "Diego, maior torcedor do coelhão. Diego", 24.0f);
-    Livro l2 = new Livro(-1, "3552356723", "Eu dei a bunda 23 vezes para o Diego!", 20.0f);
+    Livro l1 = new Livro(-1, "3049214201", "Diego, maior torcedor do coelhão. Minas Gerais", 24.0f);
+    Livro l2 = new Livro(-1, "3552356723", "Eu dei a bunda 23 vezes para o Diego! Minas Gerais", 20.0f);
     Livro l3 = new Livro(-1, "3252551555", "O Super mario é mais lento que o coelho.", 35.0f);
     Livro l4 = new Livro(-1, "3052252525", "Super mario: Irmãos encanadores", 27.0f);
 
@@ -43,23 +43,24 @@ class Principal {
       //arqLivros.delete(livro3);
       //arqLivros.delete(livro4);
       
-      /* 
-      ArrayList<Livro> lista = arqLivros.read("Diego");
+    
+      ArrayList<Livro> lista = arqLivros.read("Diego é de minas gerais");
 
       if(lista != null){
         for(Livro l : lista){
           System.out.println(l.toString());
         }
       }
-      */
+    
 
-      l1upd.setID(livro1);
-      l2upd.setID(livro2);
-      arqLivros.update(l1upd);
-      arqLivros.update(l2upd);
+      //l1upd.setID(livro1);
+      //l2upd.setID(livro2);
+      //arqLivros.update(l1upd);
+      //arqLivros.update(l2upd);
       
 
-      arqLivros.DEBUG();
+      //arqLivros.DEBUG();
+
 
       
 

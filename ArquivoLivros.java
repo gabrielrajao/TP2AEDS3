@@ -210,29 +210,129 @@ public class ArquivoLivros {
         return false;
     }
 
+    //Limpa a string de pesquisa
+    private ArrayList<String> limpar(String frase){
+        String[] lista = frase.split(" ");
+        ArrayList<String> result = null;
+
+        
+        
+        for(int i = 0; i < lista.length; i++){
+            lista[i] = lista[i]
+            .replace(",", "")
+            .replace(".", "")
+            .replace(":", "")
+            .replace(";", "")
+            .replace("!", "")
+            .replace("?", "")
+            .toLowerCase();
+
+            if(listaStopwords.contains(lista[i]) == false){
+                if(result == null){
+                    result = new ArrayList<String>();
+                }
+                result.add(lista[i]);
+            }
+
+        }
+
+        return result;
+    }
+
+    //realiza a união entre dois conjuntos de ints
+    private int[] uniao(int[] primario, int[] secundario){
+        int tamanho = 0;
+        for(int i = 0; i < primario.length; i++){
+            boolean found = false;
+            for(int j = 0; j < secundario.length; j++){
+                if(primario[i] == secundario[j]){
+                    found = true;
+                    j = secundario.length;
+                }
+            }
+            if(found == false){
+                primario[i] = -1;
+            } else {
+                tamanho++;
+            }
+        }
+
+        if(tamanho > 0){
+            int[] resultado = new int[tamanho];
+            int index = 0;
+            for(int i = 0; i < primario.length; i++){
+                if(primario[i] != -1){
+                    resultado[index++] = primario[i];
+                }
+            }
+            return resultado;
+        } else {
+            return null;
+        }
+
+    }
+
+
     //Read
     public ArrayList<Livro> read(String pesquisa) throws Exception{
 
         //prepara o arrayList de livros para retorno
         ArrayList<Livro> result = null;
 
-        //realiza a pesquisa da string na listaInvertida e recebe os resultados
-        int[] resultadopesq = listaInvertida.read(pesquisa.toLowerCase());
+
+        //separa e limpa as palavras da string
+        ArrayList<String> termos = limpar(pesquisa);
+
+        if(termos.size() > 0){
+            //realiza a pesquisa da string na listaInvertida e recebe os resultados
+            int[] resultadopesq = listaInvertida.read(termos.get(0));
 
 
-        //se forem encontrados resultados
-        if(resultadopesq.length > 0){
-            //criamos o arraylist de livros propriamente dito e salvamos na variavel de retorno
-            result = new ArrayList<Livro>();
+            //se forem encontrados resultados
+            if(resultadopesq.length > 0){
+                //se a pesquisa for de um termo apenas
+                if(termos.size() == 1){
+                    //criamos o arraylist de livros propriamente dito e salvamos na variavel de retorno
+                    result = new ArrayList<Livro>();
 
-            //enquanto o resultado da pesquisa tiver objetos
-            for(int i = 0; i < resultadopesq.length; i++){
-                //pesquisamos o id do objeto encontrado no arquivo de livros
-                Livro l = arqLivros.read(resultadopesq[i]);
-                // se o livro for diferente de null
-                if(l != null){
-                    //salvamos na variavel de retorno
-                    result.add(l);
+                    //enquanto o resultado da pesquisa tiver objetos
+                    for(int i = 0; i < resultadopesq.length; i++){
+                        //pesquisamos o id do objeto encontrado no arquivo de livros
+                        Livro l = arqLivros.read(resultadopesq[i]);
+                        // se o livro for diferente de null
+                        if(l != null){
+                            //salvamos na variavel de retorno
+                            result.add(l);
+                        }
+                    }
+                }
+                //se a pesquisa tiver mais de um termo
+                else{
+                    //enquanto tivermos termos disponiveis
+                    for(int i = 1; i < termos.size() && resultadopesq!=null; i++){
+                        //fazemos a pesquisa na listainvertida do termo secundario para a operacao 
+                        int[] termosecundario = listaInvertida.read(termos.get(i));
+                        //fazemos a uniao do termo primario com o termo secundario
+                        resultadopesq = uniao(resultadopesq, termosecundario);
+                    }
+
+                    //se a união retornar ids
+                    if(resultadopesq != null){
+                        //criamos o arraylist de livros propriamente dito e salvamos na variavel de retorno
+                        result = new ArrayList<Livro>();
+
+                        //enquanto o resultado da pesquisa tiver objetos
+                        for(int i = 0; i < resultadopesq.length; i++){
+                            //pesquisamos o id do objeto encontrado no arquivo de livros
+                            Livro l = arqLivros.read(resultadopesq[i]);
+                            // se o livro for diferente de null
+                            if(l != null){
+                                //salvamos na variavel de retorno
+                                result.add(l);
+                            }
+                        }
+                    } 
+
                 }
             }
         }
