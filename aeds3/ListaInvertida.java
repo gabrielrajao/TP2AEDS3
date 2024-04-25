@@ -393,4 +393,9 @@ public class ListaInvertida {
       System.out.println();
     }
   }
+
+  public void close()throws Exception{
+    arqBlocos.close();
+    arqDicionario.close();
+  }
 }

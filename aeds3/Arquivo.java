@@ -36,6 +36,12 @@ public class Arquivo<T extends Registro> {
         "dados/" + na + ".hash_c.db");
   }
 
+  public int tamanho() throws Exception{
+    arquivo.seek(0);
+    int ultimoID = arquivo.readInt();
+    return ultimoID;
+  }
+
   public int create(T obj) throws Exception {
     arquivo.seek(0);
     int ultimoID = arquivo.readInt();
