@@ -12,77 +12,13 @@ class Principal {
     new File("dados/livros.hash_c.db").delete();
     new File("dados/ArquivoDeExcluidos.db").delete();
 
-    Arquivo<Livro> arqLivros;
-    Livro l1 = new Livro(-1, "9788563560278", "Odisseia", 15.99F);
-    Livro l2 = new Livro(-1, "9788584290482", "Ensino Híbrido", 39.90F);
-    Livro l3 = new Livro(-1, "9786559790005", "Modernidade Líquida", 48.1F);
-    Livro l4 = new Livro(-1, "9788582714911", "Memória", 55.58F);
-    Livro l5 = new Livro(-1, "9786587150062", "Com Amor", 48.9F);
 
-
-    //Livros para teste do aproveitamento de espaco
-    Livro lt1 = new Livro(-1, "9788563560278", "Gersseia", 15.99F);
-    Livro lt2 = new Livro(-1, "9788584290482", "Ensrnu Híbrido", 39.90F);
-    Livro lt3 = new Livro(-1, "9786559790005", "Modernidute Líquida", 48.1F);
-    Livro lt4 = new Livro(-1, "9788582714911", "Esqueci", 55.58F);
-    Livro lt5 = new Livro(-1, "9786587150062", "Sem Amor", 48.9F);
-
-
-    int id1, id2, id3, id4, id5;
-
-    int idt1, idt2, idt3, idt4, idt5;
 
     try {
-      arqLivros = new Arquivo<>("livros", Livro.class.getConstructor());
+      
 
-      id1 = arqLivros.create(l1);
-      System.out.println("Livro criado com o ID: " + id1);
 
-      id2 = arqLivros.create(l2);
-      System.out.println("Livro criado com o ID: " + id2);
-
-      id3 = arqLivros.create(l3);
-      System.out.println("Livro criado com o ID: " + id3);
-
-      id4 = arqLivros.create(l4);
-      System.out.println("Livro criado com o ID: " + id4);
-
-      id5 = arqLivros.create(l5);
-      System.out.println("Livro criado com o ID: " + id5);
-
-      //TESTANDO INDICE AUX
-
-      if (arqLivros.delete(id2))
-        System.out.println("Livro de ID " + id2 + " excluído!");
-      else
-        System.out.println("Livro de ID " + id2 + " não encontrado!");
-
-      if( arqLivros.delete(id3))
-        System.out.println("Livro de ID " + id3 + " excluído!");
-      else
-        System.out.println("Livro de ID " + id3 + " não encontrado!");
-
-      l4.setTitulo("A Memória");
-      if (arqLivros.update(l4))
-        System.out.println("Livro de ID " + l4.getID() + " alterado!");
-      else
-        System.out.println("Livro de ID " + l4.getID() + " não encontrado!");
-
-      //TESTANDO APROVEITAMENTO DE ESPACOS VAZIOS
-      idt4 = arqLivros.create(lt4);
-      System.out.println("\nLivro 4:\n" + arqLivros.read(idt4));
-
-      //arqLivros.reorganizar();
-
-      /* 
-      System.out.println("\nLivro 3:\n" + arqLivros.read(3));
-      System.out.println("\nLivro 1:\n" + arqLivros.read(1));
-      System.out.println("\nLivro 5:\n" + arqLivros.read(5));
-      System.out.println("\nLivro 4:\n" + arqLivros.read(4));
-      System.out.println("\nLivro 2:\n" + arqLivros.read(2));
-      */
-
-      arqLivros.close();
+      System.out.println("AOAOAOA");
 
     } catch (Exception e) {
       e.printStackTrace();
