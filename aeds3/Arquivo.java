@@ -37,9 +37,12 @@ public class Arquivo<T extends Registro> {
   }
 
   public int tamanho() throws Exception{
-    arquivo.seek(0);
-    int ultimoID = arquivo.readInt();
-    return ultimoID;
+    if(arquivo.length() > 0){
+      arquivo.seek(0);
+      int ultimoID = arquivo.readInt();
+      return ultimoID;
+    }
+    return -1;
   }
 
   public int create(T obj) throws Exception {
