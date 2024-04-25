@@ -29,6 +29,8 @@ Fazemos a união dos dois conjuntos e temos os livros 1 e 4, se adicionarmos a p
 |Palavra| Livros  |
 |--|--|
 | Estrutura | 4  |
+
+
 Fazemos a união do conjunto 1 e 4 com o conjunto de Estrutura, resultando no livro 4 apenas.
 
 **Método getStopwords na classe ArquivoLivros:** Baixamos um dataset com inúmeras stopwords (em português) do site Kaggle (https://www.kaggle.com/datasets/heeraldedhia/stop-words-in-28-languages), a função getStopwords pega todas as Stopwords no arquivo baixado e coloca em um ArrayList
