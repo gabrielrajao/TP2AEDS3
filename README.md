@@ -5,6 +5,8 @@ Para esse trabalho, implementamos o código da lista invertida (feito em sala) n
 
 # Métodos e Classes Criadas
 
+**Menu na Main:** Menu na main que opera pela estrutura condicional switch case no console dando as opções de: inserir novo registro, buscar uma chave, deletar um registro e atualizar um registro para o usuário. 
+
 **Classe ArquivoLivros:** Criamos essa classe para que tivessemos uma classe de arquivos não genérica, visto que o TP2 pede uma lista invertida de Livros
 
 **Método Tamanho na classe Arquivo:** Adicionamos esse método para recuperar o último id do arquivo ( apenas para debug mesmo )

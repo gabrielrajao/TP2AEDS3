@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 import aeds3.Arquivo;
@@ -6,7 +7,6 @@ import aeds3.Arquivo;
 class Principal {
 
   public static void main(String args[]) {
-    
 
     new File("dados/livros.db").delete();
     new File("dados/livros.hash_d.db").delete();
@@ -15,56 +15,110 @@ class Principal {
     new File("dados/blocos.listainv.db").delete();
     new File("dados/dicionario.listainv.db").delete();
 
-
-    Livro l1 = new Livro(-1, "3049214201", "Diego, maior torcedor do coelhão. Minas Gerais", 24.0f);
-    Livro l2 = new Livro(-1, "3552356723", "Eu dei a bunda 23 vezes para o Diego! Minas Gerais", 20.0f);
-    Livro l3 = new Livro(-1, "3252551555", "O Super mario é mais lento que o coelho.", 35.0f);
-    Livro l4 = new Livro(-1, "3052252525", "Super mario: Irmãos encanadores", 27.0f);
-
-    Livro l1upd = new Livro(-1, "3049214201", "Diego, eu disse que o coelho é o maior de Minas", 24.0f);
-    Livro l2upd = new Livro(-1, "3552356723", "Minas Gerais sofre com o gigante coelho", 20.0f);
-
     try {
 
-
-      //Abrindo arquivo para Livros
+      // Abrindo arquivo para Livros
       ArquivoLivros arqLivros = new ArquivoLivros();
 
+      Scanner console = new Scanner(System.in);
+      int opcao;
+      do {
 
-      int livro1 = arqLivros.create(l1);
-      int livro2 = arqLivros.create(l2);
-      //int livro3 = arqLivros.create(l3);
-      //int livro4 = arqLivros.create(l4);
+        //arqLivros.DEBUG();
 
-      arqLivros.DEBUG();
-
-      //arqLivros.delete(livro1);
-      //arqLivros.delete(livro2);
-      //arqLivros.delete(livro3);
-      //arqLivros.delete(livro4);
-      
-    
-      ArrayList<Livro> lista = arqLivros.read("Diego é de minas gerais");
-
-      if(lista != null){
-        for(Livro l : lista){
-          System.out.println(l.toString());
+        // imprimir menu
+        System.out.println("\n\n-------------------------------");
+        System.out.println("              MENU");
+        System.out.println("-------------------------------");
+        System.out.println("1 - Inserir");
+        System.out.println("2 - Buscar");
+        System.out.println("3 - Excluir");
+        System.out.println("4 - Atualizar");
+        System.out.println("0 - Sair");
+        try {
+          opcao = Integer.valueOf(console.nextLine());
+        } catch (NumberFormatException e) {
+          opcao = -1;
         }
-      }
-    
 
-      //l1upd.setID(livro1);
-      //l2upd.setID(livro2);
-      //arqLivros.update(l1upd);
-      //arqLivros.update(l2upd);
-      
+        switch (opcao) {
+          case 1: {// inserir livro
+            System.out.println("\nINCLUSÃO");
+            try {
+              // ler os atributos do novo livro
+              System.out.print("ISBN: "); 
+              String isbn = console.nextLine();
+              System.out.print("Nome: ");
+              String nome = console.nextLine();
+              System.out.print("Preco: ");
+              float preco = Float.valueOf(console.nextLine());
+              // criar novo objeto e envia-lo para a funcao da lista
+              Livro liv = new Livro(-1, isbn, nome, preco);
+              int livro = arqLivros.create(liv);
+            } catch (Exception e) {
+            }
+          }
+          break;
 
-      //arqLivros.DEBUG();
+          case 2: {// buscar livro
+            System.out.println("\nBUSCA");
+            System.out.print("Chave de busca: ");
+            try {
+              // ler a chave de busca e criar uma lista com os resultados da procura
+              String busca = console.nextLine();
+              ArrayList<Livro> lista = arqLivros.read(busca);
+              // imprimir resultados da consulta
+              if (lista != null) {
+                for (Livro l : lista) {
+                  System.out.println(l.toString());
+                }
+              }
+            } catch (Exception e) {
+            }
+          }
+            break;
 
+          case 3: {// deletar livro
+            System.out.println("\nEXCLUSÃO");
+            System.out.print("Id do livro a ser deletado: ");
+            try {
+              // ler id do registro a ser deletado e chamar a funcao responsável pela deleção
+              int id = Integer.valueOf(console.nextLine());
+              arqLivros.delete(id);
+            } catch (Exception e) {
+            }
+          }
+            break;
 
-      
+          case 4: {// atualizar registro de livro
+          System.out.println("\nATUALIZACAO"); 
+          try {
+            // ler atributos a serem atualizados
+            System.out.print("Id do livro a ser atualizado: ");
+            int id = Integer.valueOf(console.nextLine());
+            System.out.print("novo ISBN: ");
+            String isbn = console.nextLine(); 
+            System.out.print("novo Nome: ");
+            String nome = console.nextLine();
+            System.out.print("novo Preco: ");
+            float preco = Float.valueOf(console.nextLine());
+            // criar novo objeto e envia-lo para a funcao da lista
+            Livro liv = new Livro(id, isbn, nome, preco);
+            arqLivros.update(liv);
+          } catch (Exception e) {
+          }
+        }
+            break;
 
-      //Fim do programa
+          default: {
+            
+          }  
+          break;
+        }
+
+      } while (opcao != 0);
+
+      // Fim do programa
       arqLivros.close();
 
     } catch (Exception e) {
@@ -72,5 +126,7 @@ class Principal {
     }
 
   }
+
+  
 
 }
