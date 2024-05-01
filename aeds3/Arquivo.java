@@ -103,6 +103,31 @@ public class Arquivo<T extends Registro> {
     }
     return null;
   }
+
+  //read feito para procurar por ISBN
+  public int readISBN(String isbn) throws Exception {
+    T obj = construtor.newInstance();
+    int tam;
+    byte ba[];
+    byte lapide;
+
+    //pulando o indicador de quantidade de registros
+    arquivo.seek(4);
+    //Procurando o id que bate com o ISBN recebido por parâmetro
+    while(arquivo.getFilePointer() < arquivo.length()){
+      lapide = arquivo.readByte();
+      tam = arquivo.readShort();
+      ba = new byte[tam];
+      arquivo.read(ba);
+      obj.fromByteArray(ba);
+      //Verificando o ISBN
+      if(isbn.compareTo(obj.getIsbn()) == 0){
+        return obj.getID();
+      }
+    }
+    //retornando -1 caso não ache nenhum ISBN que bata com o registro
+    return -1;
+  }
   
 
   //Delete Alterado para enviar dados para o arquivo de excluidos (Classe IndiceAuxiliar)

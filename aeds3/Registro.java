@@ -6,6 +6,8 @@ public interface Registro extends Comparable<Object>, Cloneable {
 
   public void setID(int id);
 
+  public String getIsbn();
+
   public byte[] toByteArray() throws Exception;
 
   public void fromByteArray(byte[] ba) throws Exception;

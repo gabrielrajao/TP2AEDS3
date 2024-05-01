@@ -80,11 +80,11 @@ class Principal {
 
           case 3: {// deletar livro
             System.out.println("\nEXCLUSÃO");
-            System.out.print("Id do livro a ser deletado: ");
+            System.out.print("ISBN do livro a ser deletado: ");
             try {
               // ler id do registro a ser deletado e chamar a funcao responsável pela deleção
-              int id = Integer.valueOf(console.nextLine());
-              arqLivros.delete(id);
+              String isbn = console.nextLine();
+              arqLivros.delete(isbn);
             } catch (Exception e) {
             }
           }
@@ -94,8 +94,8 @@ class Principal {
           System.out.println("\nATUALIZACAO"); 
           try {
             // ler atributos a serem atualizados
-            System.out.print("Id do livro a ser atualizado: ");
-            int id = Integer.valueOf(console.nextLine());
+            System.out.print("ISBN do livro a ser atualizado: ");
+            String antigoIsbn = console.nextLine();
             System.out.print("novo ISBN: ");
             String isbn = console.nextLine(); 
             System.out.print("novo Nome: ");
@@ -103,8 +103,8 @@ class Principal {
             System.out.print("novo Preco: ");
             float preco = Float.valueOf(console.nextLine());
             // criar novo objeto e envia-lo para a funcao da lista
-            Livro liv = new Livro(id, isbn, nome, preco);
-            arqLivros.update(liv);
+            Livro liv = new Livro(-1, isbn, nome, preco);
+            arqLivros.update(liv, antigoIsbn);
           } catch (Exception e) {
           }
         }

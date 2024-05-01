@@ -97,8 +97,14 @@ public class ArquivoLivros {
     
 
     //Update
-    public boolean update(Livro novoObj)throws Exception{
-
+    public boolean update(Livro novoObj, String antigoIsbn)throws Exception{
+        
+        //Realizando a leitura sequencial no arquivo procurando com base no ISBN para retornar o id
+        int id = arqLivros.readISBN(antigoIsbn);
+        
+        //atualizando o id do objeto recebido
+        novoObj.setID(id);
+        
         //buscamos o obj original no arquivo de livros
         Livro obj = arqLivros.read(novoObj.getID());
 
@@ -169,7 +175,15 @@ public class ArquivoLivros {
     }
 
     //Delete
-    public boolean delete(int id)throws Exception{
+    public boolean delete(String isbn)throws Exception{
+        
+        //Realizando a leitura sequencial no arquivo procurando com base no ISBN para retornar o id
+        int id = arqLivros.readISBN(isbn);
+
+        //Testando se algum id foi achado de acordo com o ISBN
+        if(id == -1){
+            return false;
+        }
 
         //buscamos o obj original no arquivo de livros
         Livro obj = arqLivros.read(id);
