@@ -40,6 +40,7 @@ public class ArquivoLivros {
 
     //DEBUG
     public void DEBUG() throws Exception{
+        System.out.println("\n\n-----------------Printando Todos Os Registros---------------------");
         //programa para printar todos os registros e registros da lista invertida (teste)
         for(int i = 1; i <= arqLivros.tamanho(); i++){
             Livro obj = arqLivros.read(i);
@@ -51,6 +52,8 @@ public class ArquivoLivros {
         }
 
         listaInvertida.print();
+
+        System.out.println("\n\n-----------------Fim Printando Todos Os Registros---------------------");
         
     }
 
@@ -69,14 +72,7 @@ public class ArquivoLivros {
             //Para cada palavra na lista de palavras do titulo
             for( String palavra : listaPalavras){
                 //Remove pontos e transforma a palavra em lowerCase (limpa as palavras)
-                String limpa = palavra
-                .replace(",", "")
-                .replace(".", "")
-                .replace(":", "")
-                .replace(";", "")
-                .replace("!", "")
-                .replace("?", "")
-                .toLowerCase();
+                String limpa = limparPalavra(palavra);
 
                 //Só criamos um indice na lista invertida se a palavra não for uma stopword
                 if(listaStopwords.contains(limpa) == false){
@@ -123,14 +119,7 @@ public class ArquivoLivros {
             //Para cada palavra na lista de palavras do titulo
             for( String palavra : listaPalavras){
                 //Remove pontos e transforma a palavra em lowerCase (limpa as palavras)
-                String limpa = palavra
-                .replace(",", "")
-                .replace(".", "")
-                .replace(":", "")
-                .replace(";", "")
-                .replace("!", "")
-                .replace("?", "")
-                .toLowerCase();
+                String limpa = limparPalavra(palavra);
 
         
 
@@ -150,14 +139,8 @@ public class ArquivoLivros {
             //Para cada palavra na lista de palavras do titulo
             for( String palavra : listaPalavras){
                 //Remove pontos e transforma a palavra em lowerCase (limpa as palavras)
-                String limpa = palavra
-                .replace(",", "")
-                .replace(".", "")
-                .replace(":", "")
-                .replace(";", "")
-                .replace("!", "")
-                .replace("?", "")
-                .toLowerCase();
+                String limpa = limparPalavra(palavra);
+                
 
                 //Só criamos um indice na lista invertida se a palavra não for uma stopword
                 if(listaStopwords.contains(limpa) == false){
@@ -199,14 +182,7 @@ public class ArquivoLivros {
             //Para cada palavra na lista de palavras do titulo
             for( String palavra : listaPalavras){
                 //Remove pontos e transforma a palavra em lowerCase (limpa as palavras)
-                String limpa = palavra
-                .replace(",", "")
-                .replace(".", "")
-                .replace(":", "")
-                .replace(";", "")
-                .replace("!", "")
-                .replace("?", "")
-                .toLowerCase();
+                String limpa = limparPalavra(palavra);
 
         
 
@@ -224,6 +200,46 @@ public class ArquivoLivros {
         return false;
     }
 
+    //Limpa uma palavra
+    private String limparPalavra(String palavra){
+        return palavra.replace(",", "")
+        .replace(".", "")
+        .replace(":", "")
+        .replace(";", "")
+        .replace("!", "")
+        .replace("?", "")
+        .toLowerCase()
+        //cedilha
+        .replace("ç", "c")
+        //a
+        .replace("á", "a")
+        .replace("à", "a")
+        .replace("â", "a")
+        .replace("ã", "a")
+        .replace("ä", "a")
+        //e
+        .replace("é", "e")
+        .replace("è", "e")
+        .replace("ê", "e")
+        .replace("ë", "e")
+        //i
+        .replace("í", "i")
+        .replace("ì", "i")
+        .replace("î", "i")
+        .replace("ï", "i")
+        //o
+        .replace("ó", "o")
+        .replace("ò", "o")
+        .replace("ô", "o")
+        .replace("ö", "o")
+        .replace("õ", "o")
+        //u
+        .replace("ú", "u")
+        .replace("ù", "u")
+        .replace("û", "u")
+        .replace("ü", "u");
+    }
+
     //Limpa a string de pesquisa
     private ArrayList<String> limpar(String frase){
         String[] lista = frase.split(" ");
@@ -232,14 +248,7 @@ public class ArquivoLivros {
         
         
         for(int i = 0; i < lista.length; i++){
-            lista[i] = lista[i]
-            .replace(",", "")
-            .replace(".", "")
-            .replace(":", "")
-            .replace(";", "")
-            .replace("!", "")
-            .replace("?", "")
-            .toLowerCase();
+            lista[i] = limparPalavra(lista[i]);
 
             if(listaStopwords.contains(lista[i]) == false){
                 if(result == null){

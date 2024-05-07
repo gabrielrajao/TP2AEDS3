@@ -1,27 +1,21 @@
+
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import aeds3.Arquivo;
+
 
 class Principal {
 
-  public static void main(String args[]) {
+  private static ArquivoLivros arqLivros;
 
-    new File("dados/livros.db").delete();
-    new File("dados/livros.hash_d.db").delete();
-    new File("dados/livros.hash_c.db").delete();
-    new File("dados/ArquivoDeExcluidos.db").delete();
-    new File("dados/blocos.listainv.db").delete();
-    new File("dados/dicionario.listainv.db").delete();
-
-    try {
-
-      // Abrindo arquivo para Livros
-      ArquivoLivros arqLivros = new ArquivoLivros();
-
-      Scanner console = new Scanner(System.in);
+  public static void menu(){
+    Scanner console = new Scanner(System.in, "latin1");
       int opcao;
+
+
+
       do {
 
         //arqLivros.DEBUG();
@@ -49,9 +43,17 @@ class Principal {
               System.out.print("ISBN: "); 
               String isbn = console.nextLine();
               System.out.print("Nome: ");
-              String nome = console.nextLine();
+              String nome = new String(console.nextLine().getBytes("UTF-8"), "UTF-8");
+
+
+
+
               System.out.print("Preco: ");
               float preco = Float.valueOf(console.nextLine());
+
+
+
+
               // criar novo objeto e envia-lo para a funcao da lista
               Livro liv = new Livro(-1, isbn, nome, preco);
               int livro = arqLivros.create(liv);
@@ -117,9 +119,78 @@ class Principal {
         }
 
       } while (opcao != 0);
+      console.close();
+  }
+
+  public static void executaComandos() throws Exception{
+
+    Livro l1 = new Livro("54210", "Tão pequeno quanto o mundo", 54.55f);
+    Livro l2 = new Livro( "54214", "O Guerreiro Dragão", 55.99f);
+    Livro l3 = new Livro( "54216", "Pequeno é o mundo sem você", 98.99f);
+    Livro l4 = new Livro( "54220", "Da água para a pedra", 98.99f);
+    Livro l5 = new Livro( "54265", "Sem água, apenas temos fogo", 98.99f);
+    Livro l6 = new Livro( "54265", "Com água, apagamos o fogo", 98.99f);
+
+    arqLivros.create(l1);
+    arqLivros.create(l2);
+    arqLivros.create(l3);
+    arqLivros.create(l4);
+    arqLivros.create(l5);
+    
+    //PRINTA TODOS OS REGISTROS 
+    arqLivros.DEBUG();
+
+    System.out.println("\n\n---------- Pesquisa1 -------------");
+    for( Livro livro : arqLivros.read("Pequeno Mundo")){
+      System.out.println(livro.toString());
+    }
+
+    System.out.println("\n\n---------- Pesquisa2 -------------");
+    for( Livro livro : arqLivros.read("Água")){
+      System.out.println(livro.toString());
+    }
+
+    System.out.println("\n\n---------- Pesquisa3 -------------");
+    for( Livro livro : arqLivros.read("Sem você mundo")){
+      System.out.println(livro.toString());
+    }
+
+    arqLivros.update(l6, "54265");
+
+    arqLivros.DEBUG();
+
+    arqLivros.delete("54210");
+
+    arqLivros.DEBUG();
+
+
+  }
+
+  public static void main(String args[]) {
+
+    new File("dados/livros.db").delete();
+    new File("dados/livros.hash_d.db").delete();
+    new File("dados/livros.hash_c.db").delete();
+    new File("dados/ArquivoDeExcluidos.db").delete();
+    new File("dados/blocos.listainv.db").delete();
+    new File("dados/dicionario.listainv.db").delete();
+
+    try {
+
+      // Abrindo arquivo para Livros
+      arqLivros = new ArquivoLivros();
+
+
+      //Temos duas opções de execução: o menu e escrever os códigos diretamente 
+      //ATENCAO!!!!: O MENU NÂO ESTA LENDO ACENTUACAO CORRETAMENTE
+
+      //menu();
+      executaComandos();
+      
 
       // Fim do programa
       arqLivros.close();
+      
 
     } catch (Exception e) {
       e.printStackTrace();
