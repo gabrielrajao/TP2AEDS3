@@ -5,7 +5,8 @@ Para esse trabalho, implementamos o código da lista invertida (feito em sala) n
 
 # Métodos e Classes Criadas
 
-**Menu na Main:** Menu na main que opera pela estrutura condicional switch case no console dando as opções de: inserir novo registro, buscar uma chave, deletar um registro e atualizar um registro para o usuário. 
+**Menu na Main:** Menu na main que opera pela estrutura condicional switch case no console dando as opções de: inserir novo registro, buscar uma chave, deletar um registro e atualizar um registro para o usuário.
+ATENÇÃO!!! A opção do menu não lida muito bem com acentuação, adicionamos um procedimento para execução dos comandos normalmente (sem menu)
 
 **Classe ArquivoLivros:** Criamos essa classe para que tivessemos uma classe de arquivos não genérica, visto que o TP2 pede uma lista invertida de Livros
 
@@ -16,6 +17,8 @@ Para esse trabalho, implementamos o código da lista invertida (feito em sala) n
 **Método Update na classe ArquivoLivros:** Neste método, fazemos um update de um livro no arquivo principal normalmente, depois deletamos todos os indices da lista invertida que estavam associados ao título antigo e, por fim, adicionamos os indices do título novo do livro.
 
 **Método Delete na classe ArquivoLivros:** Neste método, fazemos a deleção de um livro no arquivo principal normalmente e, depois, deletamos as palavras da listaInvertida associadas ao livro deletado uma por uma
+
+**Método LimparString na classe ArquivoLivros:** Fiz esse método para melhorar na praticidade de limpar as strings, adicionei, também, a funcionalidade de remoção da acentuação
 
 **Método Limpar na classe ArquivoLivros:** Esse método é auxiliar para o Read, ele quebra uma string em todos os espaços (" "), resultando um array de strings, depois remove pontos (tipo: ; : ! ? . , ) e utiliza toLowerCase() para normalizar a palavra. Por fim, o método checa se foi existem stopwords no array e as remove.
 
